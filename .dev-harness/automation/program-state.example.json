@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "status": "IDLE",
+  "active_epic": null,
+  "epics": [
+    {
+      "id": "epic-example",
+      "status": "queued",
+      "root": "harness-engine/.dev-harness/automation/epics/epic-example",
+      "contract": "harness-engine/.dev-harness/automation/epics/epic-example/contract.json",
+      "branch": null,
+      "current_round": 0,
+      "last_result": null,
+      "latest_task": null,
+      "latest_review": null,
+      "latest_commit": null
+    }
+  ],
+  "updated_at": null
+}

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "status": "IDLE",
+  "created_at": null,
+  "updated_at": null,
+  "worker_id": null,
+  "branch": null,
+  "base_branch": null,
+  "max_iterations": 0,
+  "current_round": 0,
+  "full_gate_every": 5,
+  "auto_push": false,
+  "preflight": {
+    "status": "NOT_RUN",
+    "commit": null,
+    "log_dir": null,
+    "gate_result": null
+  },
+  "rounds": [],
+  "last_result": null,
+  "last_task_brief": null,
+  "last_review": null,
+  "last_commit": null,
+  "last_error": null
+}

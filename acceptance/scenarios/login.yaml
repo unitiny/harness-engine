@@ -1,0 +1,85 @@
+name: "用户登录验证"
+description: "验证用户可以通过登录页面成功登录，跳转到仪表盘，并看到用户操作入口"
+feature: "authentication"
+tags: ["smoke", "login", "auth-ui"]
+environment: "dev"
+preconditions:
+  - "测试账号 admin 存在且密码正确"
+monitoring:
+  console:
+    enabled: true
+    capture_types: ["error", "warn"]
+    fail_on_error: true
+  network:
+    enabled: true
+    capture_types: ["xhr", "fetch"]
+    fail_on_status: [401, 403, 500]
+
+steps:
+  - name: "导航到登录页"
+    action: navigate
+    target: "/auth/login"
+    layers: [L1, L2]
+    snapshot_level: minimal
+
+  - name: "填写用户名"
+    action: fill
+    target: "input[name='username'], input[type='text'], #username"
+    value: "${TEST_USERNAME}"
+    snapshot_level: minimal
+
+  - name: "填写密码"
+    action: fill
+    target: "input[name='password'], input[type='password'], #password"
+    value: "${TEST_PASSWORD}"
+    snapshot_level: minimal
+
+  - name: "提交登录"
+    action: click
+    target: "button[type='submit'], button:has-text('登录'), button:has-text('Login')"
+    layers: [L1, L2]
+
+  - name: "等待页面跳转"
+    action: wait
+    target: "/dashboard, /, /home"
+    timeout_ms: 10000
+
+  - name: "验证仪表盘已加载"
+    action: verify
+    target: ".dashboard, #dashboard-panel, .main-content, [data-testid='dashboard'], main"
+    layers: [L1, L2, L3, L4]
+    snapshot_level: summary
+
+  - name: "验证登录后用户操作入口"
+    action: assert_text_quality
+    target: "body"
+    value:
+      required_text:
+        - "退出登录"
+      forbidden_text:
+        - "Please log in first"
+    layers: [L4]
+
+  - name: "验证右上角用户头像可见"
+    action: verify
+    target: "[data-testid='user-avatar'], .user-avatar, .topbar-user-avatar, .user-menu-avatar"
+    layers: [L4]
+
+cleanup:
+  - name: "退出登录"
+    action: click
+    target: ".logout, [data-testid='logout'], button:has-text('退出登录')"
+
+acceptance_criteria:
+  must_pass:
+    - "导航到登录页"
+    - "提交登录"
+    - "验证仪表盘已加载"
+    - "验证登录后用户操作入口"
+    - "验证右上角用户头像可见"
+  should_pass:
+    - "等待页面跳转"
+pass_condition:
+  min_reward: 0.85
+  must_pass_all_required: true
+  no_console_errors: true

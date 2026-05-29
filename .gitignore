@@ -1,0 +1,94 @@
+# ============================================================
+# harness-engine .gitignore
+# Protects secrets, personal info, and generated artifacts.
+# Only example/template files are tracked for sensitive configs.
+# ============================================================
+
+# --- Secrets & Credentials (use *.example.* files instead) ---
+.dev-harness/automation/agent-config.json
+acceptance/config/env.yaml
+
+# --- Runtime state files (contain user-specific paths) ---
+.dev-harness/automation/auto_state.json
+.dev-harness/automation/program-state.json
+
+# --- Generated logs & receipts ---
+.dev-harness/automation/logs/
+.dev-harness/automation/receipts/
+.dev-harness/execution-receipts/
+.dev-harness/receipts/
+.dev-harness/tmp/
+
+# --- Generated task briefs (may contain user paths) ---
+.dev-harness/task-briefs/
+
+# --- Session memory & reviews (user-specific) ---
+.dev-harness/memory/
+.dev-harness/reviews/
+
+# --- Meta-harness generated artifacts ---
+meta-harness/signals/latest/
+meta-harness/evidence-packets/latest/
+meta-harness/experience/latest/
+meta-harness/semantic-reviews/cache/
+meta-harness/semantic-reviews/latest/
+meta-harness/reports/
+meta-harness/proposals/candidate/
+meta-harness/proposals/rejected/
+meta-harness/proposals/validated/
+meta-harness/replays/results/
+meta-harness/logs/
+
+# --- Claude Code local settings ---
+.claude/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Node.js ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- Build output ---
+my-video/presentation/dist/
+
+# --- User screenshots & media ---
+my-video/screenshots/
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# --- Environment files ---
+.env
+.env.*
+!.env.example
+
+# --- Acceptance test reports (generated) ---
+acceptance/reports/

@@ -1,0 +1,85 @@
+# Auto-Acceptance Scenario Template
+# Copy this file and customize for your feature.
+# File naming: {feature-name}.yaml
+
+name: "场景名称"
+description: "场景描述 - 验证什么功能"
+feature: "feature-name"
+tags: ["smoke"]
+environment: "dev"
+
+preconditions:
+  - "前置条件1: 用户已登录"
+  - "前置条件2: 测试数据已就绪"
+
+monitoring:
+  console:
+    enabled: true
+    capture_types: ["error", "warn"]
+    fail_on_error: true
+    fail_on_patterns:
+      - "Unauthorized"
+      - "Failed to fetch"
+      - "Network Error"
+      - "401"
+      - "403"
+      - "500"
+  network:
+    enabled: true
+    capture_types: ["xhr", "fetch"]
+    track_timing: true
+    fail_on_status: [401, 403, 500]
+
+steps:
+  # Phase 1: Pre-check
+  - name: "导航到目标页面"
+    action: navigate
+    target: "/target-path"
+    layers: [L1, L2]
+    snapshot_level: minimal
+
+  # Phase 2: Execute
+  - name: "执行操作"
+    action: click
+    target: "button.action"
+    layers: [L1, L2]
+
+  - name: "填写表单"
+    action: fill
+    target: "input[name='field']"
+    value: "test-value"
+
+  - name: "提交"
+    action: click
+    target: "button[type='submit']"
+
+  # Phase 3: Verify
+  - name: "验证结果 - 网络"
+    action: wait
+    target: ".success-message, [data-testid='success']"
+    timeout_ms: 10000
+
+  - name: "验证结果 - DOM"
+    action: verify
+    target: ".result-container, [data-testid='result']"
+    layers: [L3, L4]
+    snapshot_level: summary
+
+  - name: "验证结果 - 持久化"
+    action: verify_api
+    target: "/api/resource"
+    layers: [L2, L5]
+
+cleanup:
+  - name: "清理测试数据"
+    action: click
+    target: "button.delete, button.cleanup"
+
+acceptance_criteria:
+  must_pass: ["导航到目标页面", "执行操作", "验证结果 - DOM"]
+  should_pass: ["验证结果 - 持久化"]
+pass_condition:
+  min_reward: 0.7
+  must_pass_all_required: true
+  no_console_errors: true
+  no_network_errors: true

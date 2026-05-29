@@ -1,0 +1,44 @@
+name: "API健康检查"
+description: "验证核心API端点可访问且返回正确格式"
+feature: "api"
+tags: ["smoke", "health"]
+environment: "dev"
+preconditions:
+  - "后端服务已启动"
+
+steps:
+  - name: "检查网关授权API"
+    action: verify_api
+    target: "/api/v1/gateway/authorize"
+    layers: [L2]
+    value:
+      method: "POST"
+      status: 200
+
+  - name: "检查用户认证API"
+    action: verify_api
+    target: "/api/v1/auth/user"
+    layers: [L2]
+
+  - name: "检查网关调用API"
+    action: verify_api
+    target: "/api/v1/gateway/invoke"
+    layers: [L2]
+    value:
+      method: "POST"
+
+  - name: "验证网关授权API响应格式"
+    action: api_call
+    target: "/api/v1/gateway/authorize"
+    layers: [L2, L5]
+    value:
+      method: "POST"
+      headers:
+        Accept: "application/json"
+
+acceptance_criteria:
+  must_pass: ["检查网关授权API", "检查用户认证API"]
+  should_pass: ["检查网关调用API"]
+pass_condition:
+  min_reward: 0.7
+  must_pass_all_required: true

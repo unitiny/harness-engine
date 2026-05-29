@@ -1,0 +1,97 @@
+name: "仪表盘中文与登录态入口验收"
+description: "验证仪表盘页面可见文案为中文，并提供右上角用户头像与退出登录入口"
+feature: "dashboard"
+tags: ["smoke", "dashboard", "i18n", "auth-ui"]
+environment: "dev"
+preconditions:
+  - "用户已登录"
+  - "数据平台有测试数据"
+monitoring:
+  console:
+    enabled: true
+    capture_types: ["error", "warn"]
+    fail_on_error: true
+  network:
+    enabled: true
+    capture_types: ["xhr", "fetch"]
+    fail_on_status: [401, 403, 500]
+
+steps:
+  - name: "导航到仪表盘"
+    action: navigate
+    target: "/"
+    layers: [L1, L2]
+
+  - name: "验证页面标题为中文"
+    action: assert
+    target: "h1, .page-title, [data-testid='page-title'], #dashboard-panel"
+    value: "仪表盘"
+    layers: [L4]
+
+  - name: "验证侧边栏与标题没有文案键泄漏"
+    action: assert_text_quality
+    target: "body"
+    value:
+      required_text:
+        - "仪表盘"
+        - "对话"
+        - "任务管理"
+        - "技能管理"
+        - "频道管理"
+        - "退出登录"
+      forbidden_text:
+        - "dashboard.title"
+        - "dashboard.subtitle"
+        - "sidebar.dashboard"
+        - "Please log in first"
+      forbidden_patterns:
+        - "\\bdashboard\\.[A-Za-z0-9_.-]+"
+        - "\\bsidebar\\.[A-Za-z0-9_.-]+"
+    layers: [L4]
+
+  - name: "验证仪表盘是一级侧边栏菜单"
+    action: assert
+    target: "#config-nav-items > #dashboard-sidebar-item #dashboard-sidebar-label"
+    value: "仪表盘"
+    layers: [L4]
+
+  - name: "验证右上角用户头像可见"
+    action: verify
+    target: "#top-header #header-right > #user-identity .user-menu-avatar"
+    layers: [L4]
+
+  - name: "验证退出登录入口可见"
+    action: verify
+    target: "#top-header #header-right > #user-identity .logout-button:has-text('退出登录')"
+    layers: [L4]
+
+  - name: "等待数据加载"
+    action: wait
+    target: ".chart, .data-card, [data-testid='chart'], canvas"
+    timeout_ms: 15000
+
+  - name: "验证图表已渲染"
+    action: verify
+    target: ".chart, canvas, [data-testid='chart']"
+    layers: [L3, L4]
+    snapshot_level: summary
+
+  - name: "验证统计卡片可见"
+    action: verify
+    target: ".stat-card, .data-card, [data-testid='stat-card']"
+    layers: [L4]
+
+acceptance_criteria:
+  must_pass:
+    - "导航到仪表盘"
+    - "验证页面标题为中文"
+    - "验证侧边栏与标题没有文案键泄漏"
+    - "验证仪表盘是一级侧边栏菜单"
+    - "验证右上角用户头像可见"
+    - "验证退出登录入口可见"
+    - "验证图表已渲染"
+  should_pass:
+    - "验证统计卡片可见"
+pass_condition:
+  min_reward: 0.85
+  must_pass_all_required: true

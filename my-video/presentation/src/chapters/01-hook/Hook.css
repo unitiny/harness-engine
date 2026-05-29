@@ -1,0 +1,398 @@
+/* ─── Hook chapter — CSS prefix: .hk ─── */
+
+/* ─── shared ─── */
+.hk .mono { font-family: var(--font-mono); }
+.hk .serif-cn {
+  font-family: var(--font-display-cn);
+  font-weight: 700;
+  letter-spacing: var(--track-tight);
+}
+
+/* ─── step 0: cold open ─── */
+.hk-cold-open {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hk-stage-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(8, 145, 178, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 145, 178, 0.08) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: grid-in 1.2s var(--ease-quart) both;
+}
+
+@keyframes grid-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hk-corner-frame {
+  position: absolute;
+  top: 48px;
+  left: 48px;
+  right: 48px;
+  bottom: 48px;
+  border: 1px dashed rgba(8, 145, 178, 0.22);
+  pointer-events: none;
+  animation: frame-draw 1.4s var(--ease-quart) both;
+}
+
+@keyframes frame-draw {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hk-hook-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  animation: center-up 1s var(--ease-quart) 0.3s both;
+}
+
+@keyframes center-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hk-hook-label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+.hk-hook-title {
+  font-size: 96px;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--text);
+  margin: 0;
+}
+
+.hk-hook-then {
+  color: var(--accent);
+}
+
+.hk-hook-sub {
+  animation: sub-in 0.8s var(--ease-quart) 0.9s both;
+}
+
+@keyframes sub-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hk-hook-fail {
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  color: var(--text-mute);
+}
+
+/* ─── step 1: scope diffusion ─── */
+.hk-scope-diff {
+  position: absolute;
+  inset: 0;
+  padding: 120px 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  animation: hk-step-in 0.6s var(--ease-quart) both;
+}
+
+@keyframes hk-step-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hk-sd-header {
+  display: flex;
+  align-items: center;
+}
+
+.hk-sd-tag {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 6px 16px;
+  border: 1px dashed var(--accent);
+}
+
+.hk-sd-body {
+  display: flex;
+  gap: 80px;
+  align-items: center;
+  flex: 1;
+}
+
+.hk-file-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.hk-ft-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: var(--surface-2);
+  border: 1px solid transparent;
+  animation: row-in 0.5s var(--ease-quart) both;
+}
+
+.hk-ft-row.hk-ft-ok {
+  border-left: 3px solid var(--accent);
+}
+
+.hk-ft-row.hk-ft-bad {
+  border-left: 3px solid #ff4d6a;
+  background: rgba(255, 77, 106, 0.06);
+}
+
+.hk-ft-row:nth-child(1) { animation-delay: 0.1s; }
+.hk-ft-row:nth-child(2) { animation-delay: 0.2s; }
+.hk-ft-row:nth-child(4) { animation-delay: 0.4s; }
+.hk-ft-row:nth-child(5) { animation-delay: 0.5s; }
+.hk-ft-row:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes row-in {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.hk-ft-icon.mono {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.hk-ft-ok .hk-ft-icon { color: var(--accent); }
+.hk-ft-bad .hk-ft-icon { color: #ff4d6a; }
+
+.hk-ft-name {
+  font-size: 18px;
+  color: var(--text);
+  flex: 1;
+}
+
+.hk-ft-badge {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.hk-ft-badge-bad {
+  border-color: #ff4d6a;
+  color: #ff4d6a;
+}
+
+.hk-ft-sep {
+  height: 1px;
+  background: var(--rule);
+  margin: 8px 0;
+}
+
+.hk-sd-quote {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hk-sd-quote-text {
+  font-size: 64px;
+  color: #ff4d6a;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ─── step 2: fake pass ─── */
+.hk-fake-pass {
+  position: absolute;
+  inset: 0;
+  padding: 100px 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  animation: hk-step-in 0.6s var(--ease-quart) both;
+}
+
+.hk-fp-big-quote {
+  font-size: 120px;
+  text-align: center;
+  line-height: 1;
+  color: var(--text);
+  margin: 0;
+  animation: quote-pop 0.8s var(--ease-overshoot) both;
+}
+
+@keyframes quote-pop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hk-fp-q {
+  color: var(--accent);
+}
+
+.hk-fp-gates {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 580px;
+}
+
+.hk-fp-gate {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--surface-2);
+  border-left: 3px solid #ff4d6a;
+  animation: gate-slide 0.5s var(--ease-quart) both;
+}
+
+.hk-fp-gate:nth-child(1) { animation-delay: 0.3s; }
+.hk-fp-gate:nth-child(2) { animation-delay: 0.5s; }
+.hk-fp-gate:nth-child(3) { animation-delay: 0.7s; }
+
+@keyframes gate-slide {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.hk-fp-gate-icon {
+  font-size: 18px;
+  color: #ff4d6a;
+  width: 24px;
+  text-align: center;
+}
+
+.hk-fp-gate-name {
+  font-size: 18px;
+  color: var(--text);
+  flex: 1;
+}
+
+.hk-fp-gate-status {
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: #ff4d6a;
+  text-transform: uppercase;
+}
+
+.hk-fp-verdict {
+  animation: verdict-in 0.6s var(--ease-quart) 1s both;
+}
+
+@keyframes verdict-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hk-fp-accent {
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  color: var(--text-mute);
+}
+
+/* ─── step 3: definition ─── */
+.hk-definition {
+  position: absolute;
+  inset: 0;
+  padding: 100px 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  animation: hk-step-in 0.6s var(--ease-quart) both;
+}
+
+.hk-def-label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  text-align: center;
+}
+
+.hk-def-pillars {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+  flex: 1;
+}
+
+.hk-def-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 320px;
+  padding: 36px 24px;
+  background: var(--surface-2);
+  border: 1px dashed var(--rule);
+  animation: pillar-up 0.7s var(--ease-quart) both;
+}
+
+.hk-def-pillar:nth-child(1) { animation-delay: 0.2s; }
+.hk-def-pillar:nth-child(3) { animation-delay: 0.4s; }
+.hk-def-pillar:nth-child(5) { animation-delay: 0.6s; }
+
+@keyframes pillar-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hk-def-pillar-icon svg {
+  color: var(--accent);
+}
+
+.hk-def-pillar-title {
+  font-size: 24px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.hk-def-pillar-desc {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.hk-def-pillar-detail {
+  font-size: 14px;
+  color: var(--text-mute);
+  text-align: center;
+  line-height: 1.8;
+}
+
+.hk-def-connector {
+  display: flex;
+  align-items: center;
+  padding-top: 60px;
+  animation: conn-in 0.5s var(--ease-quart) 0.3s both;
+}
+
+@keyframes conn-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

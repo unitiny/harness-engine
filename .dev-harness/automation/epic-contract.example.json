@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "epic_id": "epic-example",
+  "status": "queued",
+  "north_star": "State the durable goal that every loop round must advance.",
+  "acceptance_items": [
+    {
+      "id": "A1",
+      "description": "The first measurable acceptance item for this epic.",
+      "status": "pending"
+    }
+  ],
+  "forbidden_changes": [
+    "Do not push by default.",
+    "Do not change files outside the task scope.",
+    "Do not claim completion without reviewer and gate evidence."
+  ],
+  "completion_rule": {
+    "all_acceptance_done": true,
+    "final_full_gate_required": true,
+    "reviewer_done_required": true
+  }
+}

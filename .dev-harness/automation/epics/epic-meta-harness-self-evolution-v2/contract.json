@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "epic_id": "epic-meta-harness-self-evolution-v2",
+  "status": "active",
+  "north_star": "将 meta-harness 从被动观测升级为准确感知 + 自动闭环 + 持续进化的自改进系统。核心目标：传感器数据真实、反馈环路闭合、鉴别力有效、proposal 生命周期完整。",
+  "acceptance_items": [
+    {
+      "id": "A1",
+      "description": "Review 采集修复：collect_reviews() 使用多模式匹配（任务号前缀 + 内容引用 + 全目录扫描），对现有 2 个 review 文件采集量从 0 提升到 2",
+      "status": "pending"
+    },
+    {
+      "id": "A2",
+      "description": "运行时轨迹时长修复：替换 size/80 伪值为真实时间差或标记 estimated:true，estimated span 不触发 phase_latency_hotspot 告警",
+      "status": "pending"
+    },
+    {
+      "id": "A3",
+      "description": "Diff 证据实现：evidence packet 中 diff_evidence_summary 包含实际文件名和 +/-lines 统计，不再为硬编码占位符",
+      "status": "pending"
+    },
+    {
+      "id": "A4",
+      "description": "Acceptance 质量检测器：实现 ACC-R001~R005 五个 detector 函数，collect-signals.py 读取 acceptance/reports/，analyze-gaps.py 产出 acceptance 相关 findings",
+      "status": "pending"
+    },
+    {
+      "id": "A5",
+      "description": "Proposal 生命周期管理：过期 proposal 移入 expired/ 目录，max_proposal_age_days 配置生效，连续 2 次 meta-review 后过期 proposal 不再出现在 candidate/ 中",
+      "status": "pending"
+    },
+    {
+      "id": "A6",
+      "description": "Auto loop meta-review 触发：auto_harness_loop.py 支持 --with-meta-review 参数，loop 结束后自动运行 run_meta_review.py 并 attach report",
+      "status": "pending"
+    },
+    {
+      "id": "A7",
+      "description": "Memory 写回：meta-review 运行后 session-log.md 新增记录、skill-candidates.md 提取可复用模式（status: candidate）、高风险 gap 更新 active-context.md",
+      "status": "pending"
+    },
+    {
+      "id": "A8",
+      "description": "智能 offline fixture：build_fixture_verdict() 基于 rubric 规则产出至少 3 种 verdict（true_positive / benign_exception / needs_human_review），不再 100% true_positive",
+      "status": "pending"
+    },
+    {
+      "id": "A9",
+      "description": "Contract replay 指标对齐：delivery_quality_risk 使用 review_without_diff_count + acceptance_coverage，不再使用 timeout_count_per_run",
+      "status": "pending"
+    },
+    {
+      "id": "A10",
+      "description": "单元测试：meta-harness/tests/ 包含每个 detector 的 pytest 测试（positive/negative/edge）、端到端 pipeline 测试、现有 proposal regression 测试",
+      "status": "pending"
+    }
+  ],
+  "forbidden_changes": [
+    "不削弱 authority-boundary.yaml 中任何 may_not 规则",
+    "不修改 auto_harness_loop.py 核心 task_writer / implementer / gate 循环逻辑（A6 仅新增 post-loop hook）",
+    "不引入新的 LLM provider 或硬编码 API key",
+    "不修改 promotion_policy.auto_promote 为 true（保持 false）",
+    "不修改 .dev-harness/checks/ 下已有 gate 脚本的验收标准",
+    "不删除 meta-harness/knowledge/ 下任何现有规则文件",
+    "不在 meta-harness 中直接修改 .dev-harness/ 下的活跃 harness 文件"
+  ],
+  "completion_rule": {
+    "all_acceptance_done": true,
+    "final_full_gate_required": true,
+    "reviewer_done_required": false
+  }
+}

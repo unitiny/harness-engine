@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "epic_id": "epic-cockpit-auth-permission-mvp",
+  "status": "active",
+  "epic_complete": true,
+  "north_star": "实现身份+单系统查询闭环：用户账号密码登录驾驶舱，通过权限网关校验后，能用自然语言查询出租管理系统数据，且只能看到自己有权限的数据。架构可扩展到全链路权限闭环。",
+  "acceptance_items": [
+    {
+      "id": "A1",
+      "description": "用户能用账号密码登录，获取 JWT token，后续请求携带 token 通过认证",
+      "status": "done"
+    },
+    {
+      "id": "A2",
+      "description": "管理员能创建用户和账号映射，用户查询映射 API 能返回正确的系统绑定关系",
+      "status": "done"
+    },
+    {
+      "id": "A3",
+      "description": "权限网关对不同角色用户返回不同裁决结果（authorized/partial/denied）",
+      "status": "done"
+    },
+    {
+      "id": "A4",
+      "description": "每次网关调用自动写入审计日志，包含 trace_id、用户、工具、裁决结果",
+      "status": "done"
+    },
+    {
+      "id": "A5",
+      "description": "管理后台 CRUD API 全部可用，含用户管理、映射管理、工具注册、策略管理",
+      "status": "done"
+    },
+    {
+      "id": "A6",
+      "description": "模拟数据完整链路测试：admin 用户查到明细数据，viewer 用户只看到汇总并收到权限说明",
+      "status": "done"
+    }
+  ],
+  "forbidden_changes": [
+    "不要修改 openclacky 源码",
+    "不要对接真实业务系统 API（MVP 用模拟数据）",
+    "不要实现注册功能",
+    "不要做 refresh token 或 OAuth"
+  ],
+  "completion_rule": {
+    "all_acceptance_done": true,
+    "final_full_gate_required": true,
+    "reviewer_done_required": true
+  }
+}

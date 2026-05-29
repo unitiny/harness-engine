@@ -1,0 +1,48 @@
+# Gap Taxonomy
+# Maps analysis categories to the self-evolution vocabulary.
+
+categories:
+  token_waste:
+    description: "Repeated context that should be generated, summarized, or templated"
+    gap_types:
+      - missing_rule
+      - bad_workflow
+      - bad_tool_policy
+
+  ai_guidance_gap:
+    description: "Task instructions that fail to guide agents clearly"
+    gap_types:
+      - weak_rule
+      - missing_rule
+      - bad_workflow
+
+  delivery_quality_risk:
+    description: "Review or execution artifacts that lack sufficient evidence"
+    gap_types:
+      - missing_eval
+      - weak_rule
+      - bad_workflow
+
+  missing_evaluator_coverage:
+    description: "Risky or failed tasks without a proposed checker or eval repair"
+    gap_types:
+      - missing_checker
+      - missing_eval
+      - missing_memory
+
+  tool_efficiency_risk:
+    description: "Automation traces where tool selection or invocation shape causes avoidable errors, retries, or token waste"
+    gap_types:
+      - bad_tool_policy
+      - bad_workflow
+      - missing_checker
+
+gap_types:
+  missing_rule: "A harness rule that should exist but does not"
+  weak_rule: "A harness rule that exists but is too vague or permissive"
+  missing_checker: "A mechanical check that should catch a known failure class"
+  missing_memory: "A lesson that should be stored with a trigger condition"
+  bad_tool_policy: "Tool usage policy that causes waste or misdirection"
+  bad_workflow: "Process order that discovers blockers too late"
+  missing_eval: "An evaluation scenario that should validate a repair"
+  none: "No gap found; behavior is acceptable"

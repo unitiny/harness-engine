@@ -1,0 +1,77 @@
+# Meta-Harness Configuration v0.3
+# Controls signal collection, analysis, semantic triage, and replay behavior.
+
+signal_collection:
+  recent_tasks: 5           # Number of latest task briefs to collect
+  max_history: 50           # Hard ceiling for --all flag
+  include_policy_refs: true # Collect governance docs, templates, protocols
+
+automation_logs:
+  recent_console_logs: 5    # Bounded recent role logs for tool-efficiency analysis
+  max_console_chars: 12000  # Tail chars per console log; prevents log scans becoming token sinks
+
+analysis:
+  token_waste:
+    min_boilerplate_repeats: 2
+    min_block_lines: 3
+  ai_guidance:
+    require_allowed_files: true
+    require_forbidden_files: true
+    require_acceptance_criteria: true
+    require_stop_conditions: true
+  delivery_quality:
+    require_gate_evidence: true
+    require_scope_diff: true
+    require_diff_comparison: true
+
+report:
+  max_findings_per_category: 10
+  link_to_proposals: true
+
+runner:
+  python_cmd: "python3"
+  exit_on_tool_failure: true
+  exit_on_gap_finding: false
+
+semantic_triage:
+  enabled: true
+  max_packets: 5
+  max_packet_chars: 6000
+  config_path: "harness-engine/.dev-harness/automation/agent-config.json"
+  role_name: "semantic_triage"
+  fallback_role_name: "reviewer"
+  allow_reviewer_fallback: false
+  temperature: 0
+  cache: true
+  fallback_to_rules: true
+
+evidence_packets:
+  include_full_content: false
+  max_excerpt_chars: 1200
+  include_policy_refs: summary_only
+
+contract_replay:
+  enabled: true
+  baseline_window: 5
+  replay_window: 5
+  min_samples_for_verdict: 3
+  inconclusive_when_underpowered: true
+
+promotion_policy:
+  auto_promote: false
+  require_human_review: true
+  require_existing_dev_gate: true
+
+# --- Acceptance Testing Signal Collection ---
+acceptance:
+  collect_scenario_results: true
+  results_dir: "harness-engine/acceptance/reports"
+  max_recent_reports: 5
+  quality_gates_path: "harness-engine/acceptance/config/quality-gates.yaml"
+  rules_path: "harness-engine/meta-harness/knowledge/acceptance-quality-rules.yaml"
+  track_scenario_coverage: true
+  signal_types:
+    - scenario_pass_rate
+    - acceptance_coverage
+    - smoke_coverage
+    - console_error_trend

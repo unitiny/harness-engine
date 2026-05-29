@@ -1,0 +1,24 @@
+# Tool Efficiency Rules
+# Guides detection and semantic triage of avoidable tool-call waste.
+
+category: tool_efficiency_risk
+description: "Automation traces where tool selection or invocation shape causes avoidable errors, retries, or token waste."
+
+true_positive_patterns:
+  - "Repeated Bash quoting or shell parser failures when a generator/spec-file interface would avoid the retry loop."
+  - "Long generator command after --help when predictable structured fields are encoded as shell arguments."
+  - "Retrying the same failing shell invocation shape instead of switching to a safer harness tool contract."
+
+false_positive_patterns:
+  - "A single failed exploratory command that produced useful diagnostic information and did not repeat."
+  - "A bounded verification command that fails once and is immediately reported as a blocker."
+
+preferred_repairs:
+  - target: tool_policy
+    when: "The issue is shell invocation shape, allowed tool guidance, or prompt-level tool routing."
+  - target: workflow
+    when: "The issue is the order of operations, such as discovering generator limits too late."
+  - target: checker
+    when: "The pattern is mechanically detectable from console logs and should block future harness promotion."
+
+anti_gaming_check: "Do not hide tool errors by truncating logs; collect bounded error windows and verify repeated failure counts decrease."

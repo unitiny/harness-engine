@@ -1,0 +1,36 @@
+# Quality gates for acceptance testing
+# Blocking gates must pass for the acceptance gate to succeed
+
+gates:
+  - name: "smoke_pass_rate"
+    description: "All smoke-tagged scenarios must pass"
+    blocking: true
+    conditions:
+      - metric: "scenario_pass_rate"
+        tags: ["smoke"]
+        operator: "eq"
+        threshold: 1.0
+
+  - name: "overall_pass_rate"
+    description: "At least 80% of scenarios must pass"
+    blocking: true
+    conditions:
+      - metric: "scenario_pass_rate"
+        operator: "gte"
+        threshold: 0.8
+
+  - name: "console_error_free"
+    description: "No console errors during acceptance"
+    blocking: true
+    conditions:
+      - metric: "max_console_errors"
+        operator: "eq"
+        threshold: 0
+
+  - name: "performance_gate"
+    description: "No single step takes longer than 10 seconds"
+    blocking: false
+    conditions:
+      - metric: "max_step_duration_ms"
+        operator: "lte"
+        threshold: 10000

@@ -1,0 +1,53 @@
+# Semantic Triage Rubric
+# Guides LLM judgement of rule findings.
+
+verdicts:
+  true_positive:
+    description: "The rule finding identifies a real, actionable harness quality issue"
+    criteria:
+      - The pattern exists in the evidence
+      - The pattern causes measurable waste or risk
+      - A concrete repair is feasible
+      - The repair would not weaken safety boundaries
+
+  false_positive:
+    description: "The rule triggered on a pattern that is not actually a problem"
+    criteria:
+      - The pattern exists but is benign or required
+      - A repair would add no value or could be harmful
+      - The rule is too sensitive for this case
+
+  benign_exception:
+    description: "The pattern is real but should not become a patch"
+    criteria:
+      - The pattern exists and is acknowledged
+      - It is an intentional or acceptable exception
+      - Documenting it is useful, patching it is not
+
+  needs_human_review:
+    description: "The LLM cannot confidently classify this finding"
+    criteria:
+      - Insufficient context in the evidence packet
+      - Ambiguous trade-off between competing values
+      - Risk of misclassification with uncertain consequences
+
+classification_guide:
+  token_waste:
+    - "Repeated template header → benign exception if the template requires it"
+    - "Repeated implementation steps → true positive if a generator could produce them"
+    - "Long scope contract → benign exception if it is genuinely task-specific"
+
+  ai_guidance_gap:
+    - "Missing scope contract → true positive if the task modifies code"
+    - "Missing acceptance criteria → true positive for MEDIUM+ risk tasks"
+    - "Missing stop conditions → true positive for ENGINE_CRITICAL tasks"
+
+  delivery_quality_risk:
+    - "No diff reference → false positive if review provides strong gate evidence"
+    - "No gate output → true positive for DONE tasks with MEDIUM+ risk"
+    - "Incomplete scope check → benign exception if task was BLOCKED early"
+
+  missing_evaluator_coverage:
+    - "BLOCKED without repair → true positive if the blocker is a recurring class"
+    - "MEDIUM risk without eval → false positive if the task is DOCS_ONLY"
+    - "Missing checker → true positive if the failure is mechanically detectable"

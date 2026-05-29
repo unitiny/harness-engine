@@ -1,0 +1,37 @@
+# Patch Target Priority
+# When proposing repairs, prefer earlier targets over later ones.
+
+priority_order:
+  - target: checker
+    description: "Mechanical, reproducible detection of a failure class"
+    prefer_when: "Issue is mechanically detectable without human judgment"
+
+  - target: workflow
+    description: "Process or order change that prevents late blocker discovery"
+    prefer_when: "Order or timing caused the issue"
+
+  - target: eval
+    description: "Replay scenario or test that validates a repair"
+    prefer_when: "Repair needs automated validation"
+
+  - target: memory
+    description: "Lesson with trigger condition stored for future sessions"
+    prefer_when: "Lesson has a clear trigger condition and cannot be a checker"
+
+  - target: template
+    description: "Template field that prevents omission by requiring the field"
+    prefer_when: "A required field would have prevented the omission"
+
+  - target: tool_policy
+    description: "Tool usage policy change"
+    prefer_when: "Tool misuse or waste is the root cause"
+
+  - target: instruction
+    description: "Prompt or instruction text change"
+    prefer_when: "None of the above targets apply"
+
+selection_rules:
+  - rule: "Checker before instruction when the issue is mechanically detectable"
+  - rule: "Template before long prompt advice when a required field can prevent the omission"
+  - rule: "Workflow before memory when order caused late discovery"
+  - rule: "Memory only when the lesson has a clear trigger condition"

@@ -1,0 +1,23 @@
+# Authority Boundary
+# Meta-Harness must respect these boundaries at all times.
+
+may:
+  - propose candidate changes to harness artifacts
+  - generate reports and findings
+  - create prediction contracts for proposed repairs
+  - read and analyze any .dev-harness artifact
+  - store signals and proposals in meta-harness/ directory
+
+may_not:
+  - weaken active safety, research, or trading boundaries
+  - promote scientific verdicts (execution PASS != scientific PASS)
+  - replace reviewer judgment
+  - treat external project behavior as authority
+  - directly modify active .dev-harness files without review
+  - override system/developer instructions, AGENT.MD, or .dev-harness policy
+  - rewrite historical market data
+  - weaken event labeling, walk-forward, no-leakage, cost, liquidity, or risk gates
+  - treat LLM output as trading truth
+  - add non-Rust product logic
+  - auto-promote scientific verdicts
+  - create global agent skills

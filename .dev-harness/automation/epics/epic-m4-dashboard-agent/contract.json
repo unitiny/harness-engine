@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "epic_id": "epic-m4-dashboard-agent",
+  "status": "active",
+  "north_star": "将权限网关(cockpit-api)与 AI Agent(OpenClacky)打通，让用户通过自然语言查询业务数据并严格遵守权限边界。主界面为 OpenClacky Web UI，cockpit-api 纯后端，Auth Proxy 注入用户身份，自定义 cockpit_gateway Tool 替代 Skill/curl。",
+  "acceptance_items": [
+    {
+      "id": "A1",
+      "description": "统一登录体验：用户访问系统时先看到登录页，登录成功后自动跳转至 OpenClacky，JWT 全会话有效，未登录自动重定向",
+      "status": "done"
+    },
+    {
+      "id": "A2",
+      "description": "Agent 权限感知查询：分析师在对话中输入自然语言查询，Agent 自动调 cockpit-api 权限网关，按角色返回完整/脱敏/拒绝结果",
+      "status": "done"
+    },
+    {
+      "id": "A3",
+      "description": "连续追问与上下文保持：分析师可连续追问，Agent 理解上下文，每次追问独立走权限校验",
+      "status": "done"
+    },
+    {
+      "id": "A4",
+      "description": "Dashboard 报表面板：OpenClacky 侧边栏新增报表导航，展示按权限过滤的 KPI 指标卡片和趋势图表，点击卡片触发 Agent 追问",
+      "status": "done"
+    },
+    {
+      "id": "A5",
+      "description": "审计与安全：所有 Agent 查询记录审计日志，JWT 不在 URL 暴露，不经 LLM 对话内容",
+      "status": "done"
+    }
+  ],
+  "forbidden_changes": [
+    "不修改 cockpit-api 已有的权限网关、审计日志、Admin CRUD 核心代码",
+    "不引入前端构建工具（Webpack/Vite/React/Vue），只用 ECharts CDN + 原生 JS",
+    "不实现 Dify 工作流集成",
+    "不实现真实业务系统 API 对接（继续使用模拟数据）",
+    "不实现 OAuth/SSO/用户注册"
+  ],
+  "completion_rule": {
+    "all_acceptance_done": true,
+    "final_full_gate_required": true,
+    "reviewer_done_required": true
+  }
+}

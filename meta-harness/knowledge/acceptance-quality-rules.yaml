@@ -1,0 +1,86 @@
+# Acceptance Quality Rules for Meta-Harness Gap Analysis
+# Version: 1.0
+# These rules are checked by analyze-gaps.py to detect acceptance testing deficiencies.
+
+rules:
+  missing_acceptance_scenario:
+    id: "ACC-R001"
+    description: "UI feature without a corresponding acceptance scenario YAML"
+    severity: "warning"
+    detection:
+      method: "file_reference"
+      pattern: "Task brief mentions UI change but no matching YAML scenario exists in harness-engine/acceptance/scenarios/"
+      keywords: ["页面", "界面", "UI", "组件", "component", "page", "dialog", "弹窗", "表单", "form"]
+    threshold: "any"
+    action: "Create acceptance scenario YAML for the feature"
+    auto_fix: false
+
+  stale_acceptance_scenario:
+    id: "ACC-R002"
+    description: "Acceptance scenario references selectors or URLs that no longer exist in codebase"
+    severity: "warning"
+    detection:
+      method: "selector_validation"
+      pattern: "Scenario YAML references CSS selectors not found in current frontend source"
+    threshold: "any"
+    action: "Update scenario selectors to match current code"
+    auto_fix: false
+
+  acceptance_without_l5_check:
+    id: "ACC-R003"
+    description: "Data-modifying scenario lacks L5 persistence verification"
+    severity: "info"
+    detection:
+      method: "step_analysis"
+      pattern: "Scenario has fill/submit/api_call actions but no L5 layer check in any step"
+      indicators:
+        - action: "fill"
+          followed_by: "click"
+          missing_layer: "L5"
+        - action: "api_call"
+          missing_layer: "L5"
+    threshold: "any"
+    action: "Add L5 persistence verification step to ensure data is actually saved"
+    auto_fix: false
+
+  acceptance_uses_full_snapshot:
+    id: "ACC-R004"
+    description: "Scenario step uses FULL snapshot level unnecessarily (wastes tokens)"
+    severity: "info"
+    detection:
+      method: "yaml_inspection"
+      pattern: "snapshot_level: full found in step that is not a diagnostic/cleanup step"
+    threshold: "any"
+    action: "Use summary or minimal level; FULL is reserved for automatic failure diagnostics only"
+    auto_fix: false
+
+  missing_smoke_tag:
+    id: "ACC-R005"
+    description: "Critical path scenario missing 'smoke' tag"
+    severity: "info"
+    detection:
+      method: "tag_analysis"
+      pattern: "Scenario for login, dashboard, or health endpoint lacks smoke tag"
+      critical_features: ["login", "dashboard", "health", "auth"]
+    threshold: "any"
+    action: "Add 'smoke' tag to critical path scenarios"
+    auto_fix: false
+
+metrics:
+  acceptance_coverage:
+    description: "Ratio of features with acceptance scenarios"
+    formula: "features_with_scenarios / total_features"
+    target: 0.8
+    blocking: false
+
+  scenario_pass_rate:
+    description: "Percentage of scenarios passing in latest run"
+    formula: "passed_scenarios / total_scenarios"
+    target: 1.0
+    blocking: true
+
+  smoke_coverage:
+    description: "All smoke-tagged scenarios pass"
+    formula: "passed_smoke / total_smoke"
+    target: 1.0
+    blocking: true

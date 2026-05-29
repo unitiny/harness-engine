@@ -1,0 +1,33 @@
+# Delivery Quality Rules
+# Heuristics for detecting delivery quality risks.
+
+rules:
+  receipt_trust_without_diff:
+    description: "Review trusts execution receipt without checking actual diff"
+    detection: "Review verdict is PASS but no diff or git command output referenced"
+    threshold: "PASS verdict with zero diff references"
+    proposed_action: "Require diff comparison in review template"
+
+  missing_gate_evidence:
+    description: "Gate evidence is absent or too weak for the risk class"
+    detection: "Receipt or review mentions gate but provides no output"
+    threshold: "Risk class MEDIUM or HIGH with no gate output in receipt or review"
+    proposed_action: "Require gate output for MEDIUM+ risk classes"
+
+  missing_scope_diff:
+    description: "Scope-sensitive task completed without scope-diff evidence"
+    detection: "Task has scope contract but receipt has no scope check result"
+    threshold: "Scope contract present AND scope check section empty or missing"
+    proposed_action: "Require scope-diff gate for all tasks with explicit scope contracts"
+
+  dirty_generated_state:
+    description: "Task claims closure while generated indexes or automation state are dirty"
+    detection: "Receipt shows DONE but git status shows uncommitted generated files"
+    threshold: "Any generated file in modified/untracked list when task status is DONE"
+    proposed_action: "Add generated-state check to receipt template"
+
+  execution_equals_science:
+    description: "Execution PASS confused with scientific or research PASS"
+    detection: "Receipt or review equates gate pass with scientific validation"
+    threshold: "Any wording like 'scientifically proven' or 'research validated' based on gate pass"
+    proposed_action: "Add explicit disclaimer: execution PASS != scientific PASS"

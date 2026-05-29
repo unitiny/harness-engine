@@ -1,0 +1,65 @@
+# Replay Metrics
+# Metrics that contract replay can measure across time windows.
+
+metrics:
+  token_waste_count:
+    description: "Number of token waste findings per run"
+    source: "findings.json category=token_waste"
+    direction: "decrease is improvement"
+    unit: "count"
+
+  task_brief_avg_lines:
+    description: "Average line count of task briefs in the analysis window"
+    source: "tasks.json line_count field"
+    direction: "decrease is improvement (for comparable stream)"
+    unit: "lines"
+
+  repeated_boilerplate_count:
+    description: "Number of distinct repeated boilerplate blocks found"
+    source: "findings.json category=token_waste, gap_type=missing_rule"
+    direction: "decrease is improvement"
+    unit: "count"
+
+  missing_scope_count:
+    description: "Number of briefs missing allowed/forbidden paths"
+    source: "findings.json category=ai_guidance_gap"
+    direction: "decrease is improvement"
+    unit: "count"
+
+  missing_gate_evidence_count:
+    description: "Number of receipts DONE without gate evidence"
+    source: "findings.json category=delivery_quality_risk"
+    direction: "decrease is improvement"
+    unit: "count"
+
+  repair_round_count:
+    description: "Number of BLOCKED or reworked tasks in window"
+    source: "receipts.json where status=BLOCKED"
+    direction: "decrease is improvement"
+    unit: "count"
+
+  false_positive_rate_by_rule:
+    description: "Fraction of rule findings later classified as false_positive"
+    source: "semantic-reviews/latest/*.json verdict field"
+    direction: "decrease is improvement"
+    unit: "fraction"
+
+verdict_thresholds:
+  improved:
+    description: "Metric improved by at least 20% relative change"
+    min_relative_change: -0.20
+    min_samples: 3
+
+  unchanged:
+    description: "Metric changed by less than 20%"
+    max_relative_change: 0.20
+    min_samples: 3
+
+  regressed:
+    description: "Metric worsened by at least 20%"
+    min_relative_change: 0.20
+    min_samples: 3
+
+  inconclusive:
+    description: "Not enough samples to judge"
+    min_samples_required: 3
