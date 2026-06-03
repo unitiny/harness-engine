@@ -8,39 +8,43 @@
 .dev-harness/automation/agent-config.json
 acceptance/config/env.yaml
 
-# --- Runtime state files (contain user-specific paths) ---
-.dev-harness/automation/auto_state.json
-.dev-harness/automation/program-state.json
-
-# --- Generated logs & receipts ---
-.dev-harness/automation/logs/
-.dev-harness/automation/receipts/
-.dev-harness/execution-receipts/
-.dev-harness/receipts/
-.dev-harness/tmp/
-
-# --- Generated task briefs (may contain user paths) ---
-.dev-harness/task-briefs/
-
-# --- Session memory & reviews (user-specific) ---
-.dev-harness/memory/
-.dev-harness/reviews/
-
-# --- Meta-harness generated artifacts ---
-meta-harness/signals/latest/
-meta-harness/evidence-packets/latest/
-meta-harness/experience/latest/
-meta-harness/semantic-reviews/cache/
-meta-harness/semantic-reviews/latest/
-meta-harness/reports/
-meta-harness/proposals/candidate/
-meta-harness/proposals/rejected/
-meta-harness/proposals/validated/
-meta-harness/replays/results/
-meta-harness/logs/
-
 # --- Claude Code local settings ---
 .claude/
+
+# --- Harness automation/execution artifacts ---
+.dev-harness/automation/agent-config.json
+.dev-harness/automation/auto_state.json
+.dev-harness/automation/program-state.json
+.dev-harness/automation/receipts/
+.dev-harness/automation/epics/**/execution-receipt-*.md
+.dev-harness/execution-receipts/
+.dev-harness/receipts/
+.dev-harness/reviews/
+.dev-harness/task-briefs/
+.dev-harness/memory/
+.dev-harness/tmp/
+.dev-harness/templates/acceptance-gate-before.json
+.dev-harness/templates/memorify.json
+
+# --- Acceptance & Evaluation artifacts ---
+acceptance/config/env.yaml
+acceptance/reports/
+.acceptance/
+
+# --- Meta-harness runtime artifacts ---
+meta-harness/evidence-packets/
+meta-harness/experience/
+meta-harness/logs/
+meta-harness/proposals/candidate/
+meta-harness/proposals/validated/
+meta-harness/proposals/rejected/
+meta-harness/replays/
+meta-harness/reports/
+meta-harness/semantic-reviews/
+meta-harness/signals/
+
+# --- My Video artifacts (if not the main project) ---
+my-video/screenshots/
 
 # --- Python ---
 __pycache__/
@@ -89,6 +93,3 @@ ehthumbs.db
 .env
 .env.*
 !.env.example
-
-# --- Acceptance test reports (generated) ---
-acceptance/reports/
