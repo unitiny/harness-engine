@@ -11,38 +11,6 @@ acceptance/config/env.yaml
 # --- Claude Code local settings ---
 .claude/
 
-# --- Harness automation/execution artifacts ---
-.dev-harness/automation/agent-config.json
-.dev-harness/automation/auto_state.json
-.dev-harness/automation/program-state.json
-.dev-harness/automation/receipts/
-.dev-harness/automation/epics/**/execution-receipt-*.md
-.dev-harness/execution-receipts/
-.dev-harness/receipts/
-.dev-harness/reviews/
-.dev-harness/task-briefs/
-.dev-harness/memory/
-.dev-harness/tmp/
-.dev-harness/templates/acceptance-gate-before.json
-.dev-harness/templates/memorify.json
-
-# --- Acceptance & Evaluation artifacts ---
-acceptance/config/env.yaml
-acceptance/reports/
-.acceptance/
-
-# --- Meta-harness runtime artifacts ---
-meta-harness/evidence-packets/
-meta-harness/experience/
-meta-harness/logs/
-meta-harness/proposals/candidate/
-meta-harness/proposals/validated/
-meta-harness/proposals/rejected/
-meta-harness/replays/
-meta-harness/reports/
-meta-harness/semantic-reviews/
-meta-harness/signals/
-
 # --- My Video artifacts (if not the main project) ---
 my-video/screenshots/
 

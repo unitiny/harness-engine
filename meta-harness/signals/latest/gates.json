@@ -1,0 +1,25 @@
+{
+  "checks_dir_exists": true,
+  "recent_check_files": [
+    {
+      "filename": "write_task_gate.py",
+      "path": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\checks\\write_task_gate.py"
+    },
+    {
+      "filename": "scope_diff_gate.py",
+      "path": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\checks\\scope_diff_gate.py"
+    },
+    {
+      "filename": "review_gate.py",
+      "path": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\checks\\review_gate.py"
+    },
+    {
+      "filename": "receipt_gate.py",
+      "path": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\checks\\receipt_gate.py"
+    },
+    {
+      "filename": "programmatic_harness_selftest.py",
+      "path": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\checks\\programmatic_harness_selftest.py"
+    }
+  ]
+}

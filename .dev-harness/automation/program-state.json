@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "status": "RUNNING",
+  "active_epic": "epic-harness-self-optimization-20260602",
+  "epics": [
+    {
+      "id": "epic-cockpit-auth-permission-mvp",
+      "status": "active",
+      "root": "E:\\Users\\87014\\Desktop\\code\\data-cockpit-agent\\harness-engine\\.dev-harness\\automation\\epics\\epic-cockpit-auth-permission-mvp",
+      "contract": "E:\\Users\\87014\\Desktop\\code\\data-cockpit-agent\\harness-engine\\.dev-harness\\automation\\epics\\epic-cockpit-auth-permission-mvp\\contract.json",
+      "branch": "codex/auto-harness-20260525-153047",
+      "current_round": 5,
+      "last_result": "FAILED",
+      "latest_task": "E:\\Users\\87014\\Desktop\\code\\data-cockpit-agent\\harness-engine\\.dev-harness\\task-briefs\\008-2026-05-25-epic-acceptance-gate-verify-a1-a6.md",
+      "latest_review": "E:\\Users\\87014\\Desktop\\code\\data-cockpit-agent\\harness-engine\\.dev-harness\\reviews\\001-2026-05-22-cockpit-rails-skeleton-auth-a1.md",
+      "latest_commit": "69580a2",
+      "updated_at": "2026-05-25T08:14:26.874Z",
+      "latest_receipt": null
+    },
+    {
+      "id": "epic-m4-dashboard-agent",
+      "status": "active",
+      "root": "E:\\Users\\87014\\Desktop\\code\\data-cockpit-agent\\harness-engine\\.dev-harness\\automation\\epics\\epic-m4-dashboard-agent",
+      "contract": "E:\\Users\\87014\\Desktop\\code\\data-cockpit-agent\\harness-engine\\.dev-harness\\automation\\epics\\epic-m4-dashboard-agent\\contract.json",
+      "branch": "codex/auto-harness-20260527-083604",
+      "current_round": 3,
+      "last_result": "FAILED",
+      "latest_task": "E:\\Users\\87014\\Desktop\\code\\data-cockpit-agent\\harness-engine\\.dev-harness\\task-briefs\\020-2026-05-27-add-logout-button-and-user-identity-ui-to-openclacky-header-for-a1-unified-login-experience.md",
+      "latest_receipt": null,
+      "latest_commit": "3030d70",
+      "updated_at": "2026-05-27T01:41:30.162Z"
+    },
+    {
+      "id": "epic-meta-harness-self-evolution-v2",
+      "status": "active",
+      "root": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\automation\\epics\\epic-meta-harness-self-evolution-v2",
+      "contract": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\automation\\epics\\epic-meta-harness-self-evolution-v2\\contract.json",
+      "branch": "codex/auto-harness-20260602-230413",
+      "current_round": 3,
+      "last_result": "MISALIGNED_COMMITTED",
+      "latest_task": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\harness-engine\\.dev-harness\\task-briefs\\001-2026-06-02-fix-review-collection-multi-pattern.md",
+      "latest_receipt": null,
+      "latest_commit": null,
+      "updated_at": "2026-06-02T15:04:13.755Z"
+    },
+    {
+      "id": "epic-harness-self-optimization-20260602",
+      "status": "active",
+      "root": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\automation\\epics\\epic-harness-self-optimization-20260602",
+      "contract": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\automation\\epics\\epic-harness-self-optimization-20260602\\contract.json",
+      "branch": "codex/auto-harness-self-opt-20260602",
+      "current_round": 1,
+      "last_result": "DONE",
+      "latest_task": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness\\task-briefs\\023-2026-06-03-add-blocked-task-evaluator-repair-proposal-gate-to-review-gate-py-and-dev-gate-py.md",
+      "latest_receipt": null,
+      "latest_commit": "92c754c",
+      "updated_at": "2026-06-02T17:07:16.243Z"
+    }
+  ],
+  "updated_at": "2026-06-02T17:07:16.243Z"
+}

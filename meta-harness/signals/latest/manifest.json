@@ -1,0 +1,13 @@
+{
+  "collection_timestamp": "2026-06-03T11:46:48.419715",
+  "harness_root": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\.dev-harness",
+  "meta_root": "E:\\Users\\87014\\Desktop\\code\\harness-engine\\meta-harness",
+  "task_limit": 50,
+  "tasks_collected": 0,
+  "receipts_collected": 0,
+  "reviews_collected": 0,
+  "automation_logs_collected": 0,
+  "run_metrics_collected": 0,
+  "runtime_trace_spans_collected": 0,
+  "policy_refs_collected": 5
+}
